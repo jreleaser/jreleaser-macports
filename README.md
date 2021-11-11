@@ -1,3 +1,3 @@
-= MacPorts
+# MacPorts
 
 Port files for JReleaser
