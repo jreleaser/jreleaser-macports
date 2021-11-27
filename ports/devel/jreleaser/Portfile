@@ -7,9 +7,9 @@ name             jreleaser
 version          0.9.0
 revision         0
 
-categories       devel
+categories       devel java
 license          Apache-2.0
-maintainers      @jreleaser
+maintainers      @aalmiray
 platforms        darwin
 supported_archs  noarch
 
@@ -25,7 +25,7 @@ long_description JReleaser is a release automation tool. Its goal is to simplify
 
 homepage         https://jreleaser.org
 
-master_sites     https://github.com/jreleaser/jreleaser/releases/download/v0.9.0/
+master_sites     https://github.com/jreleaser/jreleaser/releases/download/v${version}
 use_zip          yes
 
 checksums        rmd160 814b44dcbfe9559c7eb554583b33eca818a13949 \
@@ -57,4 +57,6 @@ destroot {
     ln -s ../share/java/${name}/bin/jreleaser ${destroot}${prefix}/bin/jreleaser
 }
 
-livecheck.type   none
+livecheck.type   regex
+livecheck.url    https://jreleaser.org/releases/latest/download/VERSION
+livecheck.regex  (\[0-9.\]+\\.\[0-9.\]+\\.\[0-9.\]+)
