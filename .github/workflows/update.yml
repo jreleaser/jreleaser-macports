@@ -9,6 +9,8 @@ jobs:
   update:
     name: Update
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
 
     steps:
       - name: Checkout
@@ -33,8 +35,6 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
         
       - name: Branch update
-        with:
-          GITHUB_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
         run: |
           BRANCH=jreleaser-${{ steps.vars.outputs.tag }}
           cd ${GITHUB_WORKSPACE}/macports-ports   
