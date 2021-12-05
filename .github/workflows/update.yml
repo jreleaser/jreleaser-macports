@@ -39,7 +39,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}/macports-ports   
           git checkout -b $BRANCH
           cp ${GITHUB_WORKSPACE}/main/ports/devel/jreleaser/Portfile devel/jreleaser/Portfile
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Action"
-          git commit -a -m "Update JReleaser ${{ steps.vars.outputs.tag }}"
+          git config --global user.email "${{ secrets.AUTHOR_EMAIL }}"
+          git config --global user.name "${{ secrets.AUTHOR_NAME }}"
+          git commit -a -m "jreleaser: update to version ${{ steps.vars.outputs.tag }}"
           git push origin $BRANCH
