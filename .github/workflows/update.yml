@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: main
-          
+
       - name: Checkout macports fork
         uses: actions/checkout@v3
         with:
@@ -25,21 +25,17 @@ jobs:
 
       - name: Refresh fork
         run: |
-          cd ${GITHUB_WORKSPACE}/macports-ports
+          cd ${{ env.GITHUB_WORKSPACE }}/macports-ports
           git remote add upstream https://github.com/macports/macports-ports.git
           git pull upstream master
 
-      - name: Grab the tag
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-        
       - name: Branch update
         run: |
-          BRANCH=jreleaser-${{ steps.vars.outputs.tag }}
-          cd ${GITHUB_WORKSPACE}/macports-ports   
+          BRANCH=jreleaser-${{ env.GITHUB_REF_NAME }}
+          cd ${{ env.GITHUB_WORKSPACE }}/macports-ports   
           git checkout -b $BRANCH
-          cp ${GITHUB_WORKSPACE}/main/ports/devel/jreleaser/Portfile devel/jreleaser/Portfile
+          cp $${{ env.GITHUB_WORKSPACE }}/main/ports/devel/jreleaser/Portfile devel/jreleaser/Portfile
           git config --global user.email "${{ secrets.AUTHOR_EMAIL }}"
           git config --global user.name "${{ secrets.AUTHOR_NAME }}"
-          git commit -a -m "jreleaser: update to version ${{ steps.vars.outputs.tag }}"
+          git commit -a -m "jreleaser: update to version ${{ env.GITHUB_REF_NAME }}"
           git push origin $BRANCH
