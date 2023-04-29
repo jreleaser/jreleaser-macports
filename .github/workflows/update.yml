@@ -31,11 +31,11 @@ jobs:
 
       - name: Branch update
         run: |
-          BRANCH=jreleaser-${{ env.GITHUB_REF_NAME }}
+          BRANCH=jreleaser-${{ github.ref_name }}
           cd macports-ports   
           git checkout -b $BRANCH
           cp ../main/ports/devel/jreleaser/Portfile devel/jreleaser/Portfile
           git config --global user.email "${{ secrets.AUTHOR_EMAIL }}"
           git config --global user.name "${{ secrets.AUTHOR_NAME }}"
-          git commit -a -m "jreleaser: update to version ${{ env.GITHUB_REF_NAME }}"
+          git commit -a -m "jreleaser: update to version ${{ github.ref_name }}"
           git push origin $BRANCH
